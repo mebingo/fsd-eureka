@@ -11,10 +11,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ibm</groupId>
-	<artifactId>smceureka</artifactId>
+	<artifactId>fsdeureka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eureka</name>
-	<description>smc project for Eureka</description>
+	<description>FSD project for Eureka</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
