@@ -1,7 +1,7 @@
 pipeline {
   agent none
   environment {
-    DOCKERHUBNAME = "liker163"
+    DOCKERHUBNAME = "ssn717"
   }
   stages {
     stage('maven Build') {
@@ -22,10 +22,10 @@ pipeline {
       agent any
       steps {
         script {
-          def REMOVE_FLAG_C = sh(returnStdout: true, script: "docker container ls -q --filter name=.*SMC-Eureka.*") != ""
+          def REMOVE_FLAG_C = sh(returnStdout: true, script: "docker container ls -q --filter name=.*FSD-Eureka.*") != ""
           echo "REMOVE_FLAG_C: ${REMOVE_FLAG_C}"
           if(REMOVE_FLAG_C){
-            sh 'docker container rm -f $(docker container ls -q --filter name=.*SMC-Eureka.*)'
+            sh 'docker container rm -f $(docker container ls -q --filter name=.*FSD-Eureka.*)'
           }
           def REMOVE_FLAG = sh(returnStdout: true, script: "docker image ls -q *${DOCKERHUBNAME}/eureka*") != ""
           echo "REMOVE_FLAG: ${REMOVE_FLAG}"
@@ -34,12 +34,12 @@ pipeline {
           }
         }
 
-        withCredentials([usernamePassword(credentialsId: 'liker163ID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'ssn717ID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           // sh 'docker login -u $USERNAME -p $PASSWORD'
           sh 'docker image build -t ${DOCKERHUBNAME}/eureka .'
           // sh 'docker push ${DOCKERHUBNAME}/eureka'
-          // sh 'docker run -d -p 8761:8761 --network smc-net --name smceureka ${DOCKERHUBNAME}/eureka'
-          sh 'docker run -d -p 8761:8761 --memory=400M --network smc-net --name SMC-Eureka ${DOCKERHUBNAME}/eureka'
+          // sh 'docker run -d -p 8761:8761 --network fsd-net --name fsdeureka ${DOCKERHUBNAME}/eureka'
+          sh 'docker run -d -p 8761:8761 --memory=400M --network smc-net --name FSD-Eureka ${DOCKERHUBNAME}/eureka'
         }
       }
     }
